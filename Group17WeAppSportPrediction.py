@@ -8,6 +8,7 @@ import math
 import numpy as np
 import pickle
 import streamlit as strl
+import scipy.stats as stats
 
 with open("sport_model.sav", "rb") as file:
   scaler, loaded_model = pickle.load(file)
