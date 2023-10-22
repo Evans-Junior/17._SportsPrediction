@@ -13,28 +13,6 @@ import scipy.stats as stats
 with open("sport_model.sav", "rb") as file:
   scaler, loaded_model = pickle.load(file)
 
-# def predict(Name,input_data):
-#   data = input_data
-
-
-
-#     scaled_data = scaler.transform([data])
-#     prediction = round(loaded_model.predict(scaled_data)[0],2)
-    # standard_err=np.sqrt(mean_squared_error(scaled_data, input_data))
-    # # 15155 is the total numer of rows
-    # degrees_of_freedom=15155-1
-    # confidence_level = 0.95
-    # alpha = 1 - confidence_level
-    # t_critical = stats.t.ppf(1 - alpha / 2, df=degrees_of_freedom)
-    # margin_of_error = t_critical * standard_err
-    # # Calculate the lower and upper bounds of the confidence interval
-    # lower_bound = prediction - margin_of_error
-    # upper_bound = prediction + margin_of_error
-    # print(f"\n{int(confidence_level * 100)}% Prediction Interval: ({lower_bound}, {upper_bound})")
-
-  #   return Name +" overall is:" + str(prediction)
-  # return 'check your inputs, there is a mistake in there'
-
 def predict_with_interval(Name, original_overall, input_data, model=loaded_model, scaler=scaler, confidence_level=0.95):
     # Scale the input data using the loaded scaler
   scaled_data = scaler.transform([input_data])
@@ -59,13 +37,13 @@ def predict_with_interval(Name, original_overall, input_data, model=loaded_model
   lower_bound = point_prediction - margin_of_error
   upper_bound = point_prediction + margin_of_error
 
-  return f"Name overall is {point_prediction}.\nConfidence interval is ({lower_bound}, {upper_bound})"
+  return f"{Name}'s overall is {round(point_prediction,2)}.\nConfidence interval is ({round(lower_bound,2)}, {round(upper_bound,2)})"
 
 def main():
   page = strl.sidebar.selectbox("Go to", ["Home Page", "Make a Prediction"])
   
   if page=="Home Page":
-    strl.title("Welcome to Evans and Favours' \nPlayers Rating site")
+    strl.title("Welcome to Evans and Favours'")
     strl.markdown("**Players Rating site**")
     strl.write("Our site has 0.775 Mean Absolute Error")
 
@@ -83,7 +61,7 @@ def main():
     mentality_composure = strl.number_input("What is the players' mentality composure", min_value=0)
     mentality_vision = strl.number_input("What is the players' mentality vision", min_value=0)
     value_eur = strl.number_input("What is theplayers' value in eur", min_value=0)
-    wage_eur = strl.number_input("What is the player's wage eur", min_value=0)
+    wage_eur = strl.number_input("What is the player's wage in eur", min_value=0)
     passing = strl.number_input("What is the players' passing rate", min_value=0)
     dribbling = strl.number_input("What is the players' dribbling rate", min_value=0)    
     physic = strl.number_input("What is the players' physic rate", min_value=0)
